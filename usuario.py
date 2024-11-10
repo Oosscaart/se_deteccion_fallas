@@ -1,6 +1,7 @@
 import importlib
 import tkinter as tk
 from PIL import Image, ImageTk
+import os
 
 def abrir_ventana():
     # Crear la ventana principal
@@ -18,9 +19,12 @@ def abrir_ventana():
     def abrir_busqueda_sintoma():
         import busqueda_sintoma
         busqueda_sintoma.abrir_ventana_busqueda(root)
+        
+    base_path = os.path.dirname(__file__)
 
     # Cargar y ajustar el tamaño de la imagen de fondo
-    background_image = Image.open(r"C:\Users\oscar\OneDrive\Escritorio\deteccion_fallas\Fondos\fondoExperto.jpg")
+    background_image_path = os.path.join(base_path, "fondos", "wp_user_object.jpg")
+    background_image = Image.open(background_image_path)
     background_image = background_image.resize((root.winfo_screenwidth(), root.winfo_screenheight()), Image.LANCZOS)
     background_photo = ImageTk.PhotoImage(background_image)
 
@@ -33,15 +37,18 @@ def abrir_ventana():
     label.place(x=0, y=0, relwidth=1, height=150)  # Ajustar la posición y tamaño del título
 
     # Cargar iconos
-    icono_sintoma_entrar = Image.open(r"C:\Users\oscar\OneDrive\Escritorio\deteccion_fallas\Iconos\icono_sintoma_entrar.png")
+    icono_sintoma_entrar_path = os.path.join(base_path, "iconos", "icono_sintoma_entrar.png")
+    icono_sintoma_entrar = Image.open(icono_sintoma_entrar_path)
     icono_sintoma_entrar = icono_sintoma_entrar.resize((50, 50), Image.LANCZOS)
     icono_sintoma_entrar_photo = ImageTk.PhotoImage(icono_sintoma_entrar)     
 
-    icono_enfermedad_entrar = Image.open(r"C:\Users\oscar\OneDrive\Escritorio\deteccion_fallas\Iconos\icono_enfermedad_entrar.png")
+    icono_enfermedad_entrar_path = os.path.join(base_path, "iconos", "icono_enfermedad_entrar.png")
+    icono_enfermedad_entrar = Image.open(icono_enfermedad_entrar_path)
     icono_enfermedad_entrar = icono_enfermedad_entrar.resize((50, 50), Image.LANCZOS)
     icono_enfermedad_entrar_photo = ImageTk.PhotoImage(icono_enfermedad_entrar)
 
-    icono_regresar = Image.open(r"C:\Users\oscar\OneDrive\Escritorio\deteccion_fallas\iconos\icono_regresar.png")
+    icono_regresar_path = os.path.join(base_path, "iconos", "icono_regresar.png")
+    icono_regresar = Image.open(icono_regresar_path)
     icono_regresar = icono_regresar.resize((25, 25), Image.LANCZOS)
     icono_regresar_photo = ImageTk.PhotoImage(icono_regresar)
 

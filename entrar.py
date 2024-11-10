@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import simpledialog, messagebox
 from PIL import Image, ImageTk
 import importlib
+import os
 
 def abrir_ventana(root):
     # Cerrar la ventana principal
@@ -13,9 +14,13 @@ def abrir_ventana(root):
 
     # Poner la interfaz en pantalla completa
     root.attributes("-fullscreen", True)
+    
+    # Configurar la ruta base relativa al archivo actual
+    base_path = os.path.dirname(__file__)
 
     # Cargar y ajustar el tamaño de la imagen de fondo
-    background_image = Image.open(r"C:\Users\oscar\OneDrive\Escritorio\deteccion_fallas\Fondos\fondoEntrar.jpg")
+    background_image_path = os.path.join(base_path, "fondos", "wp_interfaces.jpg")
+    background_image = Image.open(background_image_path)
     background_image = background_image.resize((root.winfo_screenwidth(), root.winfo_screenheight()), Image.LANCZOS)
     background_photo = ImageTk.PhotoImage(background_image)
 
@@ -24,19 +29,22 @@ def abrir_ventana(root):
     background_label.place(x=0, y=0, relwidth=1, relheight=1)
 
     # Crear una etiqueta con el título en mayúsculas y con la fuente Times New Roman en negritas
-    label = tk.Label(root, text="Interfaces", font=("Times New Roman", 42, "bold"), bg="lightblue", fg="white", anchor="w")
+    label = tk.Label(root, text="Interfaces", font=("Times New Roman", 42, "bold"), bg="white", fg="blue", anchor="w")
     label.place(x=0, y=0, relwidth=1, height=150)  # Ajustar la posición y tamaño del título
 
     # Cargar iconos
-    icono_experto = Image.open(r"C:\Users\oscar\OneDrive\Escritorio\deteccion_fallas\Iconos\icono_experto.png")
+    icono_experto_path = os.path.join(base_path, "iconos", "icono_experto.png")
+    icono_experto = Image.open(icono_experto_path)
     icono_experto = icono_experto.resize((50, 50), Image.LANCZOS)
     icono_experto_photo = ImageTk.PhotoImage(icono_experto)
 
-    icono_usuario = Image.open(r"C:\Users\oscar\OneDrive\Escritorio\deteccion_fallas\Iconos\icono_usuario.png")
+    icono_usuario_path = os.path.join(base_path, "iconos", "icono_usuario.png")
+    icono_usuario = Image.open(icono_usuario_path)
     icono_usuario = icono_usuario.resize((50, 50), Image.LANCZOS)
     icono_usuario_photo = ImageTk.PhotoImage(icono_usuario)
 
-    icono_regresar = Image.open(r"C:\Users\oscar\OneDrive\Escritorio\deteccion_fallas\iconos\icono_regresar.png")
+    icono_regresar_path = os.path.join(base_path, "iconos", "icono_regresar.png")
+    icono_regresar = Image.open(icono_regresar_path)
     icono_regresar = icono_regresar.resize((25, 25), Image.LANCZOS)
     icono_regresar_photo = ImageTk.PhotoImage(icono_regresar)
 

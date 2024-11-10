@@ -3,15 +3,18 @@ from PIL import Image, ImageTk
 from tkinter import messagebox
 import os
 
-# Rutas de las imágenes
+# Define la ruta base relativa al archivo actual
+base_path = os.path.dirname(__file__)
+
+# Rutas de las imágenes usando rutas relativas
 ruta_imagenes = {
-    "fondo": r"C:\Users\oscar\OneDrive\Escritorio\deteccion_fallas\fondos\fondo.jpg",
-    "icono_acercade": r"C:\Users\oscar\OneDrive\Escritorio\deteccion_fallas\iconos\icono_acercade.png",
-    "icono_entrar": r"C:\Users\oscar\OneDrive\Escritorio\deteccion_fallas\iconos\icono_entrar.png",
-    "icono_cuadro_relacion": r"C:\Users\oscar\OneDrive\Escritorio\deteccion_fallas\iconos\icono_cuadro.png",
-    "icono_salir": r"C:\Users\oscar\OneDrive\Escritorio\deteccion_fallas\iconos\icono_salir.png",
-    "logo": r"C:\Users\oscar\OneDrive\Escritorio\deteccion_fallas\imagenes\logo.png",
-    "logo2": r"C:\Users\oscar\OneDrive\Escritorio\deteccion_fallas\imagenes\itz.png"
+    "fondo": os.path.join(base_path, "fondos", "wp_index.jpg"),
+    "icono_acercade": os.path.join(base_path, "iconos", "icono_acercade.png"),  # Icono para abrir la ventana de "Acerca de"
+    "icono_entrar": os.path.join(base_path, "iconos", "icono_entrar.png"),      # Icono para abrir la ventana de "Entrar"
+    "icono_cuadro_relacion": os.path.join(base_path, "iconos", "icono_cuadro.png"),
+    "icono_salir": os.path.join(base_path, "iconos", "icono_salir.png"),
+    "logo": os.path.join(base_path, "imagenes", "logo.png"),
+    "logo2": os.path.join(base_path, "imagenes", "itz.png")
 }
 
 def cargar_imagen(ruta, size):
@@ -60,7 +63,7 @@ root.imagen_derecha = imagen_derecha
 # Añadir texto al Canvas
 canvas.create_text(root.winfo_screenwidth() // 2, 90, text="BIENVENIDOS", font=("Times New Roman", 62, "bold"), fill="darkblue")
 canvas.create_text(root.winfo_screenwidth() // 2, 260, text="I . T . Z", font=("Times New Roman", 48, "bold"), fill="black")
-canvas.create_text(root.winfo_screenwidth() // 2, 430, text="S.E para diagnostico\n     de enfermades", font=("Times New Roman", 56, "bold"), fill="darkred")
+canvas.create_text(root.winfo_screenwidth() // 2, 430, text="S.E para detección de\n     fallas tecnicas",font=("Times New Roman", 56, "bold"), fill="darkred")
 canvas.create_text(root.winfo_screenwidth() // 2, 600, text="Tapia Alejandro Oscar", font=("Times New Roman", 48, "bold"), fill="black")
 
 # Cargar y redimensionar los iconos

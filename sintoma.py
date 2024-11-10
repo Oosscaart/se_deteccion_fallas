@@ -5,6 +5,7 @@ from tkinter import ttk
 from PIL import Image, ImageTk
 import mysql.connector
 import io
+import os
 
 def abrir_ventana_sintoma(root):
     # Cerrar la ventana actual
@@ -21,8 +22,11 @@ def abrir_ventana_sintoma(root):
     canvas = tk.Canvas(sintoma_root, highlightthickness=0)
     canvas.place(relwidth=1, relheight=1)
 
+    base_path = os.path.dirname(__file__)
+
     # Cargar y ajustar el tamaño de la imagen de fondo
-    background_image = Image.open(r"C:\Users\oscar\OneDrive\Escritorio\deteccion_fallas\Fondos\fondoSintoma.jpg")
+    background_image_path = os.path.join(base_path, "fondos", "wp_features.jpg")
+    background_image = Image.open(background_image_path)
     background_image = background_image.resize((sintoma_root.winfo_screenwidth(), sintoma_root.winfo_screenheight()), Image.LANCZOS)
     background_photo = ImageTk.PhotoImage(background_image)
 
@@ -586,19 +590,23 @@ def abrir_ventana_sintoma(root):
     canvas.tag_bind(image_canvas, "<Button-1>", seleccionar_imagen)
 
     # Cargar las imágenes de los iconos
-    icono_inicio = Image.open(r"C:\Users\oscar\OneDrive\Escritorio\deteccion_fallas\iconos\icono_inicio.png")
+    icono_inicio_path = os.path.join(base_path, "iconos", "icono_inicio.png")
+    icono_inicio = Image.open(icono_inicio_path)
     icono_inicio = icono_inicio.resize((25, 25), Image.LANCZOS)
     icono_inicio_photo = ImageTk.PhotoImage(icono_inicio)
 
-    icono_atras = Image.open(r"C:\Users\oscar\OneDrive\Escritorio\deteccion_fallas\iconos\icono_atras.png")
+    icono_atras_path = os.path.join(base_path, "iconos", "icono_atras.png")
+    icono_atras = Image.open(icono_atras_path)
     icono_atras = icono_atras.resize((25, 25), Image.LANCZOS)
     icono_atras_photo = ImageTk.PhotoImage(icono_atras)
 
-    icono_siguiente = Image.open(r"C:\Users\oscar\OneDrive\Escritorio\deteccion_fallas\iconos\icono_siguiente.png")
+    icono_siguiente_path = os.path.join(base_path, "iconos", "icono_siguiente.png")
+    icono_siguiente = Image.open(icono_siguiente_path)
     icono_siguiente = icono_siguiente.resize((25, 25), Image.LANCZOS)
     icono_siguiente_photo = ImageTk.PhotoImage(icono_siguiente)
 
-    icono_fin = Image.open(r"C:\Users\oscar\OneDrive\Escritorio\deteccion_fallas\iconos\icono_fin.png")
+    icono_fin_path = os.path.join(base_path, "iconos", "icono_fin.png")
+    icono_fin = Image.open(icono_fin_path)
     icono_fin = icono_fin.resize((25, 25), Image.LANCZOS)
     icono_fin_photo = ImageTk.PhotoImage(icono_fin)
 
@@ -616,37 +624,42 @@ def abrir_ventana_sintoma(root):
     boton_fin.place(relx=0.72, rely=0.80, anchor="center")
     
     # Añadir los botones adicionales individualmente
-    icono_altas = Image.open(r"C:\Users\oscar\OneDrive\Escritorio\deteccion_fallas\iconos\icono_altas.png")
+    icono_altas_path = os.path.join(base_path, "iconos", "icono_altas.png")
+    icono_altas = Image.open(icono_altas_path)
     icono_altas = icono_altas.resize((20, 20), Image.LANCZOS)
     icono_altas_photo = ImageTk.PhotoImage(icono_altas)
     boton_altas = tk.Button(sintoma_root, text="Altas", font=("Arial", 16), image=icono_altas_photo, compound="left", padx=20, pady=10, command=guardar_datos)
     boton_altas.place(relx=0.3, rely=0.9, anchor="center")
 
-    icono_bajas = Image.open(r"C:\Users\oscar\OneDrive\Escritorio\deteccion_fallas\iconos\icono_bajas.png")
+    icono_bajas_path = os.path.join(base_path, "iconos", "icono_bajas.png")
+    icono_bajas = Image.open(icono_bajas_path)
     icono_bajas = icono_bajas.resize((25, 25), Image.LANCZOS)
     icono_bajas_photo = ImageTk.PhotoImage(icono_bajas)
     boton_bajas = tk.Button(sintoma_root, text="Bajas", font=("Arial", 16), image=icono_bajas_photo, compound="left", padx=20, pady=10, command=eliminar_datos)
     boton_bajas.place(relx=0.4, rely=0.9, anchor="center")
 
-    icono_consultas = Image.open(r"C:\Users\oscar\OneDrive\Escritorio\deteccion_fallas\iconos\icono_consultas.png")
+    icono_consultas_path = os.path.join(base_path, "iconos", "icono_consultas.png")
+    icono_consultas = Image.open(icono_consultas_path)
     icono_consultas = icono_consultas.resize((25, 25), Image.LANCZOS)
     icono_consultas_photo = ImageTk.PhotoImage(icono_consultas)
     boton_consultas = tk.Button(sintoma_root, text="Consultas", font=("Arial", 16), image=icono_consultas_photo, compound="left", padx=20, pady=10, command=mostrar_menu_consultas)
     boton_consultas.place(relx=0.52, rely=0.9, anchor="center")
 
-    icono_modificar = Image.open(r"C:\Users\oscar\OneDrive\Escritorio\deteccion_fallas\iconos\icono_modificar.png")
+    icono_modificar_path = os.path.join(base_path, "iconos", "icono_modificar.png")
+    icono_modificar = Image.open(icono_modificar_path)
     icono_modificar = icono_modificar.resize((25, 25), Image.LANCZOS)
     icono_modificar_photo = ImageTk.PhotoImage(icono_modificar)
     boton_modificar = tk.Button(sintoma_root, text="Modificar", font=("Arial", 16), image=icono_modificar_photo, compound="left", padx=20, pady=10, command=modificar)
     boton_modificar.place(relx=0.65, rely=0.9, anchor="center")
     
-    icono_regresar = Image.open(r"C:\Users\oscar\OneDrive\Escritorio\deteccion_fallas\iconos\icono_regresar.png")
+    icono_regresar_path = os.path.join(base_path, "iconos", "icono_regresar.png")
+    icono_regresar = Image.open(icono_regresar_path)
     icono_regresar = icono_regresar.resize((25, 25), Image.LANCZOS)
     icono_regresar_photo = ImageTk.PhotoImage(icono_regresar)
     boton_salir = tk.Button(sintoma_root, text="Salir", font=("Arial", 16),image=icono_regresar_photo, compound="left", padx=20, pady=10, command=regresar)
     boton_salir.place(relx=0.76, rely=0.9, anchor="center")
     
-
+    
     # Iniciar el bucle principal de la interfaz
     sintoma_root.mainloop()
     

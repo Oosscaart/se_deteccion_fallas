@@ -3,6 +3,7 @@ from tkinter import OptionMenu, StringVar, Label, Entry, Listbox, Scrollbar, END
 from PIL import Image, ImageTk
 import mysql.connector
 import io
+import os
 
 def abrir_ventana_cuadro_relacion(root):
     # Cierra la ventana actual
@@ -33,8 +34,11 @@ def abrir_ventana_cuadro_relacion(root):
     canvas = tk.Canvas(cuadro_relacion_root, highlightthickness=0)
     canvas.place(relwidth=1, relheight=1)
     
+    base_path = os.path.dirname(__file__)
+    
     # Cargar y ajustar el tamaño de la imagen de fondo
-    background_image = Image.open(r"C:\Users\oscar\OneDrive\Escritorio\deteccion_fallas\Fondos\fondoCuadrorelacion.jpg")
+    background_image_path = os.path.join(base_path, "fondos", "wp_table_relationship.jpg")
+    background_image = Image.open(background_image_path)
     background_image = background_image.resize((cuadro_relacion_root.winfo_screenwidth(), cuadro_relacion_root.winfo_screenheight()), Image.LANCZOS)
     background_photo = ImageTk.PhotoImage(background_image)
 

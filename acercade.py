@@ -1,11 +1,13 @@
 import tkinter as tk
 from PIL import Image, ImageTk
+import os
 
-# Ruta de las imágenes
-ruta_imagen_fondo = "C:\\Users\\oscar\\OneDrive\\Escritorio\\deteccion_fallas\\fondos\\fondoExperto.jpg"
-ruta_icono_regresar = "C:\\Users\\oscar\\OneDrive\\Escritorio\\deteccion_fallas\\iconos\\icono_regresar.png"
-ruta_icono_autores = "C:\\Users\\oscar\\OneDrive\\Escritorio\\deteccion_fallas\\iconos\\icono_autores.png"
-ruta_imagen = "C:\\Users\\oscar\\OneDrive\\Escritorio\\deteccion_fallas\\imagenes\\sistema_experto.jpg"
+# Ruta de las imágenes (relativas a la ubicación de este archivo .py)
+base_path = os.path.dirname(__file__)  # Obtiene la ruta del directorio del script
+ruta_imagen_fondo = os.path.join(base_path, "fondos", "wp_index.jpg")
+ruta_icono_regresar = os.path.join(base_path, "iconos", "icono_regresar.png")
+ruta_icono_autores = os.path.join(base_path, "iconos", "icono_autores.png")
+ruta_imagen = os.path.join(base_path, "imagenes", "sistema_experto.jpg")
 
 def abrir_ventana(root, ruta_imagen_fondo):
     # Crear la ventana "Acerca de"

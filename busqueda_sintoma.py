@@ -4,6 +4,7 @@ from PIL import Image, ImageTk
 import importlib
 import mysql.connector
 import io
+import os
 
 def abrir_ventana_busqueda(root):
     # Crear la ventana principal
@@ -20,8 +21,12 @@ def abrir_ventana_busqueda(root):
     canvas = tk.Canvas(buscar_sintoma_root, highlightthickness=0)
     canvas.place(relwidth=1, relheight=1)
     
-    #Cargamos y ajustamos el tamaño de la imagen de fondo
-    background_image = Image.open(r"C:\Users\oscar\OneDrive\Escritorio\deteccion_fallas\Fondos\fondoSintoma.jpg")
+    # Define la ruta base relativa al archivo actual
+    base_path = os.path.dirname(__file__)
+
+    # Ruta relativa para la imagen de fondo
+    background_image_path = os.path.join(base_path, "fondos", "wp_features.jpg")
+    background_image = Image.open(background_image_path)
     background_image = background_image.resize((buscar_sintoma_root.winfo_screenwidth(), buscar_sintoma_root.winfo_screenheight()), Image.LANCZOS)
     background_photo = ImageTk.PhotoImage(background_image)
     
@@ -99,7 +104,8 @@ def abrir_ventana_busqueda(root):
     boton_eliminar.place(x=buscar_sintoma_root.winfo_screenwidth() / 2 + 50, y=520)
     
     #boton regresar
-    icono_regresar = Image.open(r"C:\Users\oscar\OneDrive\Escritorio\deteccion_fallas\iconos\icono_regresar.png")
+    icono_regresar_path = os.path.join(base_path, "iconos", "icono_regresar.png")
+    icono_regresar = Image.open(icono_regresar_path)
     icono_regresar = icono_regresar.resize((25, 25), Image.LANCZOS)
     icono_regresar_photo = ImageTk.PhotoImage(icono_regresar)
 

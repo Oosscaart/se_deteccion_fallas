@@ -1,11 +1,15 @@
 import tkinter as tk
 from PIL import Image, ImageTk
+import os
 
-# Ruta de las imágenes
-ruta_imagen_fondo = "C:\\Users\\oscar\\OneDrive\\Escritorio\\deteccion_fallas\\fondos\\fondoExperto.jpg"
-ruta_imagen_autor1 = "C:\\Users\\oscar\\OneDrive\\Escritorio\\deteccion_fallas\\imagenes\\oscar.jpeg"
-ruta_imagen_autor2 = "C:\\Users\\oscar\\OneDrive\\Escritorio\\deteccion_fallas\\imagenes\\jessica.jpg"
-ruta_icono_regresar = "C:\\Users\\oscar\\OneDrive\\Escritorio\\deteccion_fallas\\iconos\\icono_regresar.png"
+# Define la ruta base relativa al archivo actual
+base_path = os.path.dirname(__file__)
+
+# Rutas relativas de las imágenes
+ruta_imagen_fondo = os.path.join(base_path, "fondos", "wp_index.jpg")
+ruta_imagen_autor1 = os.path.join(base_path, "imagenes", "oscar.jpeg")
+ruta_imagen_autor2 = os.path.join(base_path, "imagenes", "jessica.jpg")
+ruta_icono_regresar = os.path.join(base_path, "iconos", "icono_regresar.png")
 
 def abrir_ventana(root, ruta_imagen_fondo):
     # Crear la ventana "Autores"
