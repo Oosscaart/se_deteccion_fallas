@@ -1,5 +1,5 @@
-DROP TABLE enfermedad_sintoma;
+DROP TABLE fallas_computadora;
 
-DROP TABLE sintoma;
+DROP TABLE caracteristicas;
 
-DROP TABLE objeto;
+DROP TABLE caracteristicas_fallas_computadora;

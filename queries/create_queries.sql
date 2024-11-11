@@ -5,6 +5,7 @@ CREATE TABLE fallas_computadora (
     nombre VARCHAR(255) NOT NULL,
     descripcion TEXT NOT NULL,
     imagen LONGBLOB NOT NULL,
+    suma INT,
     PRIMARY KEY (id, nombre)
 );
 
@@ -13,6 +14,7 @@ CREATE TABLE caracteristicas (
     id INT AUTO_INCREMENT,
     nombre VARCHAR(255) NOT NULL,
     imagen LONGBLOB NOT NULL,
+    bandera BOOLEAN,
     PRIMARY KEY (id, nombre)
 );
 

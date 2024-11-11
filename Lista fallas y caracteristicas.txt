@@ -1,0 +1,110 @@
+#### Sistema Experto para la detección de problemas técnicos.
+Lista de Problemas y Síntomas:
+
+1. Problema de sobrecalentamiento
+	•Ruidos de ventilador elevados
+	•Sistema se apaga inesperadamente
+	•Temperaturas elevadas
+	•Ralentización general
+	•Disminución de rendimiento en gráficos
+2. Fallo en el disco duro
+	•Ruidos de clic en disco duro
+	•Tiempos de carga prolongados
+	•Archivos corruptos
+	•Error "dispositivo de arranque no encontrado"
+	•Pérdida de datos
+3. Fallo en la tarjeta gráfica
+	•Artefactos visuales
+	•Pantalla en negro
+	•Colores distorsionados
+	•Rendimiento pobre en gráficos 3D
+	•Pantalla parpadeante
+4. Pantallazo azul de la muerte (BSOD)
+	•Pantallazo azul
+	•Mensaje de error específico de sistema
+	•Reinicios inesperados
+	•Error de memoria insuficiente
+	•Problemas al iniciar el sistema
+5. Problemas de arranque del sistema
+	•Pantalla en negro al iniciar
+	•Mensaje "dispositivo de arranque no encontrado"
+	•Problemas de BIOS
+	•Falla en la detección de dispositivos
+6. Sistema operativo corrupto
+	•Error al iniciar
+	•Ventanas emergentes desconocidas
+	•Reinicios inesperados
+	•Rendimiento lento
+	•Errores en archivos del sistema
+7. Memoria RAM defectuosa
+	•Pantallazo azul
+	•Errores "memoria insuficiente"
+	•Sistema operativo tarda en arrancar
+	•Congelamientos frecuentes
+8. Fuente de alimentación defectuosa
+	•Sistema se apaga o reinicia inesperadamente
+	•Mensaje de advertencia de voltaje
+	•El sistema no se enciende
+	•Parpadeo en luces LED
+9. Problemas de conexión a Internet
+	•Internet intermitente
+	•No se detecta red Wi-Fi
+	•Baja velocidad de conexión
+	•Desconexiones de red inesperadas
+10. Virus o malware
+	•Ventanas emergentes
+	•Navegador redirige
+	•Archivos modificados sin autorización
+	•Ralentización general
+	•Pérdida de datos o archivos
+11. Software desactualizado
+	•Errores al ejecutar programas
+	•Lentitud general
+	•Incompatibilidad de archivos
+	•Problemas con actualizaciones automáticas
+12. Drivers faltantes o corruptos
+	•Errores al instalar drivers
+	•Teclado o mouse no responden
+	•Dispositivos no detectados
+	•Pantallazo azul relacionado con drivers
+13. Problema de rendimiento
+	•Ralentización general
+	•Ventanas que no responden
+	•Alta carga de CPU
+	•Carga lenta de aplicaciones
+14. Archivos del sistema corruptos
+	•Archivos no se abren
+	•Lentitud en la transferencia de archivos
+	•Fallos en el sistema
+	•Mensajes de error de archivos faltantes
+15. Fallo en la batería (portátiles)
+	•La batería no carga
+	•Descarga rápida de batería
+	•Sistema se apaga al desconectar
+	•Advertencias de baja batería
+16. Problema de conexión de periféricos
+	•Errores en puertos USB
+	•Dispositivos no detectados
+	•Desconexión de dispositivos
+	•Ratón o teclado no responden
+17. Problemas de pantalla
+	•Resolución incorrecta
+	•Pantalla parpadea
+	•Líneas horizontales
+	•Colores distorsionados
+	•Imagen borrosa
+18. Actualización de sistema fallida
+	•Error en la instalación de actualizaciones
+	•Sistema se inicia en modo seguro
+	•Ventanas emergentes de error
+	•Problemas de compatibilidad de software
+19. Ruidos inusuales del hardware
+	•Ruidos de clic o zumbido
+	•Ralentización del sistema
+	•Ventilador funcionando constantemente
+	•Vibración inusual en el equipo
+20. Error en la configuración de BIOS
+	•No se puede ingresar a BIOS
+	•El sistema no detecta dispositivos de almacenamiento
+	•El sistema operativo no carga
+	•Reinicios durante la configuración de BIOS,

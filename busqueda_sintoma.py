@@ -10,15 +10,15 @@ def abrir_ventana_busqueda(root):
     # Crear la ventana principal
     root.destroy()
     
-    #Creamos una nueca ventana para la busqueda de sintomas
-    buscar_sintoma_root = tk.Tk()
-    buscar_sintoma_root.title("buscar sintoma")
+    # Creamos una nueva ventana para la búsqueda de características
+    buscar_caracteristica_root = tk.Tk()
+    buscar_caracteristica_root.title("Buscar Característica")
     
-    #Establecemos pantalla completa
-    buscar_sintoma_root.attributes("-fullscreen", True)
+    # Establecemos pantalla completa
+    buscar_caracteristica_root.attributes("-fullscreen", True)
     
-    #Creamos una imagen de fondo
-    canvas = tk.Canvas(buscar_sintoma_root, highlightthickness=0)
+    # Creamos una imagen de fondo
+    canvas = tk.Canvas(buscar_caracteristica_root, highlightthickness=0)
     canvas.place(relwidth=1, relheight=1)
     
     # Define la ruta base relativa al archivo actual
@@ -27,14 +27,14 @@ def abrir_ventana_busqueda(root):
     # Ruta relativa para la imagen de fondo
     background_image_path = os.path.join(base_path, "fondos", "wp_features.jpg")
     background_image = Image.open(background_image_path)
-    background_image = background_image.resize((buscar_sintoma_root.winfo_screenwidth(), buscar_sintoma_root.winfo_screenheight()), Image.LANCZOS)
+    background_image = background_image.resize((buscar_caracteristica_root.winfo_screenwidth(), buscar_caracteristica_root.winfo_screenheight()), Image.LANCZOS)
     background_photo = ImageTk.PhotoImage(background_image)
     
-    #Colocamos la imagen de fondo en el canvas
+    # Colocamos la imagen de fondo en el canvas
     canvas.create_image(0, 0, image=background_photo, anchor="nw")  
     
-    #Crear el texto del titulo en el canvas y centrarlo
-    canvas.create_text(buscar_sintoma_root.winfo_screenwidth() / 2, 75, text="Agregar Síntoma", font=("Times New Roman", 42, "bold"), fill="white")
+    # Crear el texto del título en el canvas y centrarlo
+    canvas.create_text(buscar_caracteristica_root.winfo_screenwidth() / 2, 75, text="Agregar Característica", font=("Times New Roman", 42, "bold"), fill="white")
     
     # Conectar a la base de datos
     conexion = mysql.connector.connect(
@@ -45,71 +45,71 @@ def abrir_ventana_busqueda(root):
     )
     
     cursor = conexion.cursor()
-    cursor.execute("SELECT nombre, imagen FROM sintoma")
-    sintomas = cursor.fetchall()
+    cursor.execute("SELECT nombre, imagen FROM caracteristicas")
+    caracteristicas = cursor.fetchall()
     conexion.close()
     
-    # Crear el texto "Síntomas"
-    canvas.create_text(buscar_sintoma_root.winfo_screenwidth() / 2 - 100, 150, text="Síntomas:", font=("Times New Roman", 24, "bold"), fill="white")
+    # Crear el texto "Características"
+    canvas.create_text(buscar_caracteristica_root.winfo_screenwidth() / 2 - 100, 150, text="Características:", font=("Times New Roman", 24, "bold"), fill="white")
     
-    # Crear el OptionMenu para los síntomas
-    variable_sintoma = StringVar(buscar_sintoma_root)
-    variable_sintoma.set(sintomas[0][0])  # Valor por defecto
-    option_menu = OptionMenu(buscar_sintoma_root, variable_sintoma, *[s[0] for s in sintomas])
+    # Crear el OptionMenu para las características
+    variable_caracteristica = StringVar(buscar_caracteristica_root)
+    variable_caracteristica.set(caracteristicas[0][0])  # Valor por defecto
+    option_menu = OptionMenu(buscar_caracteristica_root, variable_caracteristica, *[c[0] for c in caracteristicas])
     option_menu.config(font=("Times New Roman", 18))
-    option_menu.place(x=buscar_sintoma_root.winfo_screenwidth() / 2, y=130)
+    option_menu.place(x=buscar_caracteristica_root.winfo_screenwidth() / 2, y=130)
     
-    # Función para mostrar la imagen del síntoma seleccionado
-    def mostrar_imagen_sintoma(*args):
-        sintoma_seleccionado = variable_sintoma.get()
-        for sintoma in sintomas:
-            if sintoma[0] == sintoma_seleccionado:
-                imagen_bytes = sintoma[1]
+    # Función para mostrar la imagen de la característica seleccionada
+    def mostrar_imagen_caracteristica(*args):
+        caracteristica_seleccionada = variable_caracteristica.get()
+        for caracteristica in caracteristicas:
+            if caracteristica[0] == caracteristica_seleccionada:
+                imagen_bytes = caracteristica[1]
                 imagen = Image.open(io.BytesIO(imagen_bytes))
                 imagen = imagen.resize((200, 200), Image.LANCZOS)
                 imagen_photo = ImageTk.PhotoImage(imagen)
-                canvas.create_image(buscar_sintoma_root.winfo_screenwidth() / 2 + 200, 130, image=imagen_photo, anchor="nw")
+                canvas.create_image(buscar_caracteristica_root.winfo_screenwidth() / 2 + 200, 130, image=imagen_photo, anchor="nw")
                 canvas.image = imagen_photo  # Guardar referencia para evitar que la imagen sea recolectada por el garbage collector
                 break
     
-    variable_sintoma.trace("w", mostrar_imagen_sintoma)
-    mostrar_imagen_sintoma()
+    variable_caracteristica.trace("w", mostrar_imagen_caracteristica)
+    mostrar_imagen_caracteristica()
     
-    # Crear Listbox para mostrar los síntomas añadidos
-    listbox_sintomas = Listbox(buscar_sintoma_root, font=("Times New Roman", 18))
-    listbox_sintomas.place(x=buscar_sintoma_root.winfo_screenwidth() / 2 - 100, y=300, width=300, height=200)
+    # Crear Listbox para mostrar las características añadidas
+    listbox_caracteristicas = Listbox(buscar_caracteristica_root, font=("Times New Roman", 18))
+    listbox_caracteristicas.place(x=buscar_caracteristica_root.winfo_screenwidth() / 2 - 100, y=300, width=300, height=200)
     
-    # Función para añadir síntoma al Listbox
-    def añadir_sintoma():
-        sintoma_seleccionado = variable_sintoma.get()
-        listbox_sintomas.insert(tk.END, sintoma_seleccionado)
+    # Función para añadir característica al Listbox
+    def añadir_caracteristica():
+        caracteristica_seleccionada = variable_caracteristica.get()
+        listbox_caracteristicas.insert(tk.END, caracteristica_seleccionada)
     
-    # Función para eliminar síntoma del Listbox
-    def eliminar_sintoma():
-        seleccion = listbox_sintomas.curselection()
+    # Función para eliminar característica del Listbox
+    def eliminar_caracteristica():
+        seleccion = listbox_caracteristicas.curselection()
         if seleccion:
-            listbox_sintomas.delete(seleccion)
+            listbox_caracteristicas.delete(seleccion)
             
     def regresar():
-        buscar_sintoma_root.destroy()
+        buscar_caracteristica_root.destroy()
         import usuario
         usuario.abrir_ventana()
     
-    # Botón para añadir síntoma
-    boton_añadir = Button(buscar_sintoma_root, text="Añadir", font=("Times New Roman", 18), command=añadir_sintoma)
-    boton_añadir.place(x=buscar_sintoma_root.winfo_screenwidth() / 2 - 100, y=520)
+    # Botón para añadir característica
+    boton_añadir = Button(buscar_caracteristica_root, text="Añadir", font=("Times New Roman", 18), command=añadir_caracteristica)
+    boton_añadir.place(x=buscar_caracteristica_root.winfo_screenwidth() / 2 - 100, y=520)
     
-    # Botón para eliminar síntoma
-    boton_eliminar = Button(buscar_sintoma_root, text="Eliminar", font=("Times New Roman", 18), command=eliminar_sintoma)
-    boton_eliminar.place(x=buscar_sintoma_root.winfo_screenwidth() / 2 + 50, y=520)
+    # Botón para eliminar característica
+    boton_eliminar = Button(buscar_caracteristica_root, text="Eliminar", font=("Times New Roman", 18), command=eliminar_caracteristica)
+    boton_eliminar.place(x=buscar_caracteristica_root.winfo_screenwidth() / 2 + 50, y=520)
     
-    #boton regresar
+    # Botón regresar
     icono_regresar_path = os.path.join(base_path, "iconos", "icono_regresar.png")
     icono_regresar = Image.open(icono_regresar_path)
     icono_regresar = icono_regresar.resize((25, 25), Image.LANCZOS)
     icono_regresar_photo = ImageTk.PhotoImage(icono_regresar)
 
-    boton_salir = tk.Button(buscar_sintoma_root, text="Salir", font=("Arial", 16),image=icono_regresar_photo, compound="left", padx=20, pady=10, command=regresar)
+    boton_salir = tk.Button(buscar_caracteristica_root, text="Salir", font=("Arial", 16), image=icono_regresar_photo, compound="left", padx=20, pady=10, command=regresar)
     boton_salir.place(relx=0.76, rely=0.9, anchor="center")  
       
-    buscar_sintoma_root.mainloop()
+    buscar_caracteristica_root.mainloop()
