@@ -17,9 +17,9 @@ def abrir_ventana_cuadro_relacion(root):
         database="sistema_experto"
     )
     cursor = conexion.cursor()
-    cursor.execute("SELECT id, nombre, imagen FROM objeto")
+    cursor.execute("SELECT id, nombre, imagen FROM fallas_computadora")
     enfermedades = cursor.fetchall()
-    cursor.execute("SELECT id, nombre FROM sintoma")
+    cursor.execute("SELECT id, nombre FROM caracteristicas")
     sintomas = cursor.fetchall()
     conexion.close()
 
@@ -58,11 +58,11 @@ def abrir_ventana_cuadro_relacion(root):
     boton_regresar.place(x=cuadro_relacion_root.winfo_screenwidth() - 150, y=cuadro_relacion_root.winfo_screenheight() - 50)
     
     # Crear el texto "Enfermedad" y centrarlo
-    canvas.create_text(250, 150, text="Enfermedad:", font=("Times New Roman", 24, "bold"), fill="white")
+    canvas.create_text(250, 150, text="Falla:", font=("Times New Roman", 24, "bold"), fill="white")
     
     # Crear el OptionMenu para mostrar las enfermedades
     enfermedad_var = StringVar(cuadro_relacion_root)
-    enfermedad_var.set("Selecciona una enfermedad")
+    enfermedad_var.set("Selecciona una Falla")
     option_menu = OptionMenu(cuadro_relacion_root, enfermedad_var, *[enfermedad[1] for enfermedad in enfermedades])
     option_menu.place(x=350, y=140)
     
@@ -86,11 +86,11 @@ def abrir_ventana_cuadro_relacion(root):
     enfermedad_var.trace("w", mostrar_imagen)
     
     # Crear el texto "Sintoma" y centrarlo
-    canvas.create_text(250, 200, text="Sintoma:", font=("Times New Roman", 24, "bold"), fill="white")
+    canvas.create_text(250, 200, text="caracteristicas:", font=("Times New Roman", 24, "bold"), fill="white")
     
     # Crear el OptionMenu para mostrar los síntomas
     sintoma_var = StringVar(cuadro_relacion_root)
-    sintoma_var.set("Selecciona un sintoma")
+    sintoma_var.set("Selecciona caracteristicas")
     option_menu_sintoma = OptionMenu(cuadro_relacion_root, sintoma_var, *[sintoma[1] for sintoma in sintomas])
     option_menu_sintoma.place(x=350, y=190)
     
@@ -102,7 +102,7 @@ def abrir_ventana_cuadro_relacion(root):
     peso_entry.place(x=350, y=240)
     
     # Crear el título "Síntomas por añadir"
-    canvas.create_text(290, 480, text="Síntomas por añadir:", font=("Times New Roman", 24, "bold"), fill="white")
+    canvas.create_text(290, 480, text="caracteristicas por añadir:", font=("Times New Roman", 24, "bold"), fill="white")
 
     # Crear el Listbox para mostrar los registros añadidos (nuevos) y centrarlo
     listbox_frame_nuevos = tk.Frame(cuadro_relacion_root)
@@ -141,7 +141,7 @@ def abrir_ventana_cuadro_relacion(root):
                 database="sistema_experto"
             )
             cursor = conexion.cursor()
-            cursor.execute("SELECT s.nombre, es.peso FROM enfermedad_sintoma es JOIN sintoma s ON es.id_sintoma = s.id WHERE es.id_enfermedad = %s", (enfermedad_id,))
+            cursor.execute("SELECT s.nombre, es.peso FROM caracteristicas_fallas_computadoras es JOIN caracteristicas s ON es.id_caracteristicas = s.id WHERE es.id_fallas_computadora = %s", (enfermedad_id,))
             registros = cursor.fetchall()
             for registro in registros:
                 listbox_existentes.insert(END, f"{enfermedad_seleccionada} - {registro[0]} - {registro[1]}%")
@@ -153,7 +153,7 @@ def abrir_ventana_cuadro_relacion(root):
         peso = peso_entry.get()
         if enfermedad_seleccionada and sintoma_seleccionado and peso:
             listbox_nuevos.insert(END, f"{enfermedad_seleccionada} - {sintoma_seleccionado} - {peso}%")
-            sintoma_var.set("Selecciona un sintoma")
+            sintoma_var.set("Selecciona una caracteristica")
             peso_entry.delete(0, END)
             option_menu.config(state="disabled")
     
@@ -189,8 +189,8 @@ def abrir_ventana_cuadro_relacion(root):
                 )
                 cursor = conexion.cursor()
 
-                # Eliminar el registro de la tabla "enfermedad_sintoma"
-                cursor.execute("DELETE FROM enfermedad_sintoma WHERE id_enfermedad = %s AND id_sintoma = %s", (enfermedad_id, sintoma_id))
+                # Eliminar el registro de la tabla "caracteristicas_fallas_computadoras"
+                cursor.execute("DELETE FROM caracteristicas_fallas_computadoras WHERE id_fallas_computadora = %s AND id_caracteristicas = %s", (enfermedad_id, sintoma_id))
                 conexion.commit()
                 
                 # Mostrar mensaje de éxito
@@ -200,9 +200,9 @@ def abrir_ventana_cuadro_relacion(root):
                 listbox_existentes.delete(seleccion_existentes)
 
                 # Actualizar la suma de los pesos en la tabla "objeto"
-                cursor.execute("SELECT SUM(peso) FROM enfermedad_sintoma WHERE id_enfermedad = %s", (enfermedad_id,))
+                cursor.execute("SELECT SUM(peso) FROM caracteristicas_fallas_computadoras WHERE id_fallas_computadora = %s", (enfermedad_id,))
                 suma_pesos = cursor.fetchone()[0] or 0.0  # Si no hay más registros, suma será 0.0
-                cursor.execute("UPDATE objeto SET suma = %s WHERE id = %s", (suma_pesos, enfermedad_id))
+                cursor.execute("UPDATE fallas_computadora SET suma = %s WHERE id = %s", (suma_pesos, enfermedad_id))
                 conexion.commit()
 
                 conexion.close()
@@ -216,8 +216,8 @@ def abrir_ventana_cuadro_relacion(root):
         enfermedad_seleccionada = enfermedad_var.get()
         
         # Verificar si la enfermedad seleccionada es válida
-        if enfermedad_seleccionada == "Selecciona una enfermedad":
-            messagebox.showerror("Error", "Por favor selecciona una enfermedad válida.")
+        if enfermedad_seleccionada == "Selecciona una Falla":
+            messagebox.showerror("Error", "Por favor selecciona una Falla válida.")
             return
         
         try:
@@ -237,24 +237,24 @@ def abrir_ventana_cuadro_relacion(root):
                 peso = int(registro[2][:-1])  # Eliminar el símbolo '%' al convertir a entero
                 
                 # Verificar si el registro ya existe
-                cursor.execute("SELECT * FROM enfermedad_sintoma WHERE id_enfermedad = %s AND id_sintoma = %s", (enfermedad_id, sintoma_id))
+                cursor.execute("SELECT * FROM caracteristicas_fallas_computadoras WHERE id_fallas_computadora = %s AND id_caracteristicas = %s", (enfermedad_id, sintoma_id))
                 if cursor.fetchone() is None:
                     # Insertar nuevo registro si no existe
-                    cursor.execute("INSERT INTO enfermedad_sintoma (id_enfermedad, id_sintoma, peso) VALUES (%s, %s, %s)", (enfermedad_id, sintoma_id, peso))
+                    cursor.execute("INSERT INTO caracteristicas_fallas_computadoras (id_fallas_computadora, id_caracteristicas, peso) VALUES (%s, %s, %s)", (enfermedad_id, sintoma_id, peso))
             
             # Actualizar la tabla "objeto" con la suma de los pesos
-            cursor.execute("SELECT SUM(peso) FROM enfermedad_sintoma WHERE id_enfermedad = %s", (enfermedad_id,))
+            cursor.execute("SELECT SUM(peso) FROM caracteristicas_fallas_computadoras WHERE id_fallas_computadora = %s", (enfermedad_id,))
             suma_pesos = cursor.fetchone()[0]
             
             # Actualizar la columna "suma" en la tabla "objeto" con el valor total de los pesos
-            cursor.execute("UPDATE objeto SET suma = %s WHERE id = %s", (suma_pesos, enfermedad_id))
+            cursor.execute("UPDATE fallas_computadora SET suma = %s WHERE id = %s", (suma_pesos, enfermedad_id))
             
             conexion.commit()
             messagebox.showinfo("Éxito", "Registros guardados exitosamente.")
             
             # Limpiar los campos después de guardar
-            enfermedad_var.set("Selecciona una enfermedad")
-            sintoma_var.set("Selecciona un sintoma")
+            enfermedad_var.set("Selecciona una Falla")
+            sintoma_var.set("Selecciona una caracteristica")
             peso_entry.delete(0, END)
             listbox_nuevos.delete(0, END)
             listbox_existentes.delete(0, END)
@@ -292,13 +292,13 @@ def abrir_ventana_cuadro_relacion(root):
         enfermedad_seleccionada = enfermedad_var.get()
         
         # Verificar si la enfermedad seleccionada es válida antes de continuar
-        if enfermedad_seleccionada == "Selecciona una enfermedad":
-            messagebox.showerror("Error", "No hay nada que cancelar, por favor selecciona una enfermedad válida.")
+        if enfermedad_seleccionada == "Selecciona una Falla":
+            messagebox.showerror("Error", "No hay nada que cancelar, por favor selecciona una Falla válida.")
             return
         
         # Restablecer los campos a su valor inicial
-        enfermedad_var.set("Selecciona una enfermedad")
-        sintoma_var.set("Selecciona un sintoma")
+        enfermedad_var.set("Selecciona una Falla")
+        sintoma_var.set("Selecciona una caracteristica")
         peso_entry.delete(0, END)
         listbox_nuevos.delete(0, END)
         
