@@ -141,7 +141,7 @@ def abrir_ventana_cuadro_relacion(root):
                 database="sistema_experto"
             )
             cursor = conexion.cursor()
-            cursor.execute("SELECT s.nombre, es.peso FROM caracteristicas_fallas_computadoras es JOIN caracteristicas s ON es.id_caracteristicas = s.id WHERE es.id_fallas_computadora = %s", (enfermedad_id,))
+            cursor.execute("SELECT s.nombre, es.peso FROM caracteristicas_fallas_computadora es JOIN caracteristicas s ON es.id_caracteristicas = s.id WHERE es.id_fallas_computadora = %s", (enfermedad_id,))
             registros = cursor.fetchall()
             for registro in registros:
                 listbox_existentes.insert(END, f"{enfermedad_seleccionada} - {registro[0]} - {registro[1]}%")
@@ -189,8 +189,8 @@ def abrir_ventana_cuadro_relacion(root):
                 )
                 cursor = conexion.cursor()
 
-                # Eliminar el registro de la tabla "caracteristicas_fallas_computadoras"
-                cursor.execute("DELETE FROM caracteristicas_fallas_computadoras WHERE id_fallas_computadora = %s AND id_caracteristicas = %s", (enfermedad_id, sintoma_id))
+                # Eliminar el registro de la tabla "caracteristicas_fallas_computadora"
+                cursor.execute("DELETE FROM caracteristicas_fallas_computadora WHERE id_fallas_computadora = %s AND id_caracteristicas = %s", (enfermedad_id, sintoma_id))
                 conexion.commit()
                 
                 # Mostrar mensaje de éxito
@@ -200,7 +200,7 @@ def abrir_ventana_cuadro_relacion(root):
                 listbox_existentes.delete(seleccion_existentes)
 
                 # Actualizar la suma de los pesos en la tabla "objeto"
-                cursor.execute("SELECT SUM(peso) FROM caracteristicas_fallas_computadoras WHERE id_fallas_computadora = %s", (enfermedad_id,))
+                cursor.execute("SELECT SUM(peso) FROM caracteristicas_fallas_computadora WHERE id_fallas_computadora = %s", (enfermedad_id,))
                 suma_pesos = cursor.fetchone()[0] or 0.0  # Si no hay más registros, suma será 0.0
                 cursor.execute("UPDATE fallas_computadora SET suma = %s WHERE id = %s", (suma_pesos, enfermedad_id))
                 conexion.commit()
@@ -237,13 +237,13 @@ def abrir_ventana_cuadro_relacion(root):
                 peso = int(registro[2][:-1])  # Eliminar el símbolo '%' al convertir a entero
                 
                 # Verificar si el registro ya existe
-                cursor.execute("SELECT * FROM caracteristicas_fallas_computadoras WHERE id_fallas_computadora = %s AND id_caracteristicas = %s", (enfermedad_id, sintoma_id))
+                cursor.execute("SELECT * FROM caracteristicas_fallas_computadora WHERE id_fallas_computadora = %s AND id_caracteristicas = %s", (enfermedad_id, sintoma_id))
                 if cursor.fetchone() is None:
                     # Insertar nuevo registro si no existe
-                    cursor.execute("INSERT INTO caracteristicas_fallas_computadoras (id_fallas_computadora, id_caracteristicas, peso) VALUES (%s, %s, %s)", (enfermedad_id, sintoma_id, peso))
+                    cursor.execute("INSERT INTO caracteristicas_fallas_computadora (id_fallas_computadora, id_caracteristicas, peso) VALUES (%s, %s, %s)", (enfermedad_id, sintoma_id, peso))
             
             # Actualizar la tabla "objeto" con la suma de los pesos
-            cursor.execute("SELECT SUM(peso) FROM caracteristicas_fallas_computadoras WHERE id_fallas_computadora = %s", (enfermedad_id,))
+            cursor.execute("SELECT SUM(peso) FROM caracteristicas_fallas_computadora WHERE id_fallas_computadora = %s", (enfermedad_id,))
             suma_pesos = cursor.fetchone()[0]
             
             # Actualizar la columna "suma" en la tabla "objeto" con el valor total de los pesos
