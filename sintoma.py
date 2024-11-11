@@ -13,7 +13,7 @@ def abrir_ventana_sintoma(root):
 
     # Crear una nueva ventana
     sintoma_root = tk.Tk()
-    sintoma_root.title("Agregar Síntoma")
+    sintoma_root.title("Agregar Caracteristica")
 
     # Poner la interfaz en pantalla completa
     sintoma_root.attributes("-fullscreen", True)
@@ -34,7 +34,7 @@ def abrir_ventana_sintoma(root):
     canvas.create_image(0, 0, image=background_photo, anchor="nw")
 
     # Crear el texto del título en el canvas y centrarlo
-    canvas.create_text(sintoma_root.winfo_screenwidth() / 2, 75, text="Agregar Síntoma", font=("Times New Roman", 42, "bold"), fill="white")
+    canvas.create_text(sintoma_root.winfo_screenwidth() / 2, 75, text="Agregar Caracteristica", font=("Times New Roman", 42, "bold"), fill="white")
 
     # Variables para almacenar los datos
     nombre_var = tk.StringVar()
@@ -68,7 +68,7 @@ def abrir_ventana_sintoma(root):
                 database="sistema_experto"
             )
             cursor = conexion.cursor()
-            cursor.execute("SELECT nombre, imagen FROM sintoma ORDER BY id ASC LIMIT 1")
+            cursor.execute("SELECT nombre, imagen FROM caracteristicas ORDER BY id ASC LIMIT 1")
             registro = cursor.fetchone()
             if registro:
                 nombre_var.set(registro[0])
@@ -96,7 +96,7 @@ def abrir_ventana_sintoma(root):
                 database="sistema_experto"
             )
             cursor = conexion.cursor()
-            cursor.execute("SELECT nombre, imagen FROM sintoma WHERE id < (SELECT id FROM sintoma WHERE nombre = %s) ORDER BY id DESC LIMIT 1", (nombre_actual,))
+            cursor.execute("SELECT nombre, imagen FROM caracteristicas WHERE id < (SELECT id FROM caracteristicas WHERE nombre = %s) ORDER BY id DESC LIMIT 1", (nombre_actual,))
             registro = cursor.fetchone()
             if registro:
                 nombre_var.set(registro[0])
@@ -124,7 +124,7 @@ def abrir_ventana_sintoma(root):
                 database="sistema_experto"
             )
             cursor = conexion.cursor()
-            cursor.execute("SELECT nombre, imagen FROM sintoma WHERE id > (SELECT id FROM sintoma WHERE nombre = %s) ORDER BY id ASC LIMIT 1", (nombre_actual,))
+            cursor.execute("SELECT nombre, imagen FROM caracteristicas WHERE id > (SELECT id FROM caracteristicas WHERE nombre = %s) ORDER BY id ASC LIMIT 1", (nombre_actual,))
             registro = cursor.fetchone()
             if registro:
                 nombre_var.set(registro[0])
@@ -151,7 +151,7 @@ def abrir_ventana_sintoma(root):
                 database="sistema_experto"
             )
             cursor = conexion.cursor()
-            cursor.execute("SELECT nombre, imagen FROM sintoma ORDER BY id DESC LIMIT 1")
+            cursor.execute("SELECT nombre, imagen FROM caracteristicas ORDER BY id DESC LIMIT 1")
             registro = cursor.fetchone()
             if registro:
                 nombre_var.set(registro[0])
@@ -185,14 +185,14 @@ def abrir_ventana_sintoma(root):
             cursor = conexion.cursor()
             
             # Verificar si el nombre ya existe
-            cursor.execute("SELECT COUNT(*) FROM sintoma WHERE nombre = %s", (nombre,))
+            cursor.execute("SELECT COUNT(*) FROM caracteristicas WHERE nombre = %s", (nombre,))
             if cursor.fetchone()[0] > 0:
                 messagebox.showerror("Error", "El nombre ya existe. Por favor, elija otro nombre.")
                 return                
             
             with open(imagen_path, "rb") as file:
                 imagen_blob = file.read()
-            cursor.execute("INSERT INTO sintoma (nombre, imagen) VALUES (%s, %s)", (nombre, imagen_blob))
+            cursor.execute("INSERT INTO caracteristicas (nombre, imagen) VALUES (%s, %s)", (nombre, imagen_blob))
             conexion.commit()
             cursor.close()
             conexion.close()
@@ -230,7 +230,7 @@ def abrir_ventana_sintoma(root):
                     database="sistema_experto"
                 )
                 cursor = conexion.cursor()
-                cursor.execute("SELECT nombre FROM sintoma")
+                cursor.execute("SELECT nombre FROM caracteristicas")
                 registros = cursor.fetchall()
                 for registro in registros:
                     listbox.insert(tk.END, registro[0])
@@ -255,7 +255,7 @@ def abrir_ventana_sintoma(root):
                     database="sistema_experto"
                 )
                 cursor = conexion.cursor()
-                cursor.execute("DELETE FROM sintoma WHERE nombre = %s", (seleccion,))
+                cursor.execute("DELETE FROM caracteristicas WHERE nombre = %s", (seleccion,))
                 if cursor.rowcount == 0:
                     messagebox.showinfo("Información", "No se encontró ningún registro con ese nombre.")
                 else:
@@ -312,7 +312,7 @@ def abrir_ventana_sintoma(root):
                 database="sistema_experto"
             )
             cursor = conexion.cursor()
-            cursor.execute("SELECT nombre FROM sintoma")
+            cursor.execute("SELECT nombre FROM caracteristicas")
             registros = cursor.fetchall()
             for registro in registros:
                 listbox.insert(tk.END, registro[0])
@@ -341,7 +341,7 @@ def abrir_ventana_sintoma(root):
                 database="sistema_experto"
             )
             cursor = conexion.cursor()
-            cursor.execute("SELECT nombre, imagen FROM sintoma WHERE nombre = %s", (nombre,))
+            cursor.execute("SELECT nombre, imagen FROM caracteristicas WHERE nombre = %s", (nombre,))
             registro = cursor.fetchone()
             cursor.close()
             conexion.close()
@@ -393,7 +393,7 @@ def abrir_ventana_sintoma(root):
                 database="sistema_experto"
             )
             cursor = conexion.cursor()
-            cursor.execute("SELECT nombre, imagen FROM sintoma")
+            cursor.execute("SELECT nombre, imagen FROM caracteristicas")
             registros = cursor.fetchall()
             cursor.close()
             conexion.close()
@@ -442,7 +442,7 @@ def abrir_ventana_sintoma(root):
                     database="sistema_experto"
                 )
                 cursor = conexion.cursor()
-                cursor.execute("SELECT nombre FROM sintoma")
+                cursor.execute("SELECT nombre FROM caracteristicas")
                 registros = cursor.fetchall()
                 for registro in registros:
                     tree.insert("", tk.END, values=registro)
@@ -504,7 +504,7 @@ def abrir_ventana_sintoma(root):
                         database="sistema_experto"
                     )
                     cursor = conexion.cursor()
-                    cursor.execute("SELECT nombre, imagen FROM sintoma WHERE nombre = %s", (nombre,))
+                    cursor.execute("SELECT nombre, imagen FROM caracteristicas WHERE nombre = %s", (nombre,))
                     registro = cursor.fetchone()
                     if registro:
                         entry_nombre_modificar.insert(0, registro[0])
@@ -543,7 +543,7 @@ def abrir_ventana_sintoma(root):
                     )
                     cursor = conexion.cursor()
                     # Verifica si el nuevo nombre ya existe
-                    cursor.execute("SELECT COUNT(*) FROM sintoma WHERE nombre = %s", (nuevo_nombre,))
+                    cursor.execute("SELECT COUNT(*) FROM caracteristicas WHERE nombre = %s", (nuevo_nombre,))
                     if cursor.fetchone()[0] > 0 and nuevo_nombre != nombre:
                         messagebox.showerror("Error", "El nuevo nombre ya existe. Por favor, elija otro nombre.")
                         return
@@ -551,9 +551,9 @@ def abrir_ventana_sintoma(root):
                     if imagen_path_modificar:
                         with open(imagen_path_modificar, 'rb') as file:
                             binary_data = file.read()
-                        cursor.execute("UPDATE sintoma SET nombre = %s, imagen = %s WHERE nombre = %s", (nuevo_nombre, binary_data, nombre))
+                        cursor.execute("UPDATE caracteristicas SET nombre = %s, imagen = %s WHERE nombre = %s", (nuevo_nombre, binary_data, nombre))
                     else:
-                        cursor.execute("UPDATE sintoma SET nombre = %s WHERE nombre = %s", (nuevo_nombre, nombre))
+                        cursor.execute("UPDATE caracteristicas SET nombre = %s WHERE nombre = %s", (nuevo_nombre, nombre))
                     conexion.commit()
                     messagebox.showinfo("Éxito", "Registro modificado correctamente.")
                     ventana_modificar_detalles.destroy()
@@ -576,7 +576,7 @@ def abrir_ventana_sintoma(root):
         boton_cerrar.pack(pady=10)
             
     # Crear el texto "Síntoma" en el canvas
-    canvas.create_text(sintoma_root.winfo_screenwidth() / 4, 180, text="Síntoma:", font=("Times New Roman", 20, "bold"), fill="white", anchor="w")
+    canvas.create_text(sintoma_root.winfo_screenwidth() / 4, 180, text="caracteristicas:", font=("Times New Roman", 20, "bold"), fill="white", anchor="w")
 
     # Crear un cuadro de entrada para el nombre del síntoma
     entry_nombre = tk.Entry(sintoma_root, textvariable=nombre_var, font=("Times New Roman", 20), width=30)
