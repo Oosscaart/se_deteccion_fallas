@@ -69,10 +69,10 @@ def abrir_ventana():
     icono_cuadro_relacion_photo = ImageTk.PhotoImage(icono_cuadro_relacion)
 
     # Crear botones "Agregar Objeto", "Agregar Sintoma" y "Cuadro-Relacion"
-    button_agregar_objeto = tk.Button(root, text="Agregar Objeto", font=("Times New Roman", 20, "bold"), bg="lightgray", fg="black", image=icono_agregar_objeto_photo, compound="left", command=abrir_objeto)
+    button_agregar_objeto = tk.Button(root, text="Agregar Falla Técnica", font=("Times New Roman", 20, "bold"), bg="lightgray", fg="black", image=icono_agregar_objeto_photo, compound="left", command=abrir_objeto)
     button_agregar_objeto.place(relx=0.5, rely=0.3, anchor="center")
 
-    button_agregar_sintoma = tk.Button(root, text="Agregar Sintoma", font=("Times New Roman", 20, "bold"), bg="lightgray", fg="black", image=icono_agregar_sintoma_photo, compound="left", command=abrir_sintoma)
+    button_agregar_sintoma = tk.Button(root, text="Agregar Caracteristica", font=("Times New Roman", 20, "bold"), bg="lightgray", fg="black", image=icono_agregar_sintoma_photo, compound="left", command=abrir_sintoma)
     button_agregar_sintoma.place(relx=0.5, rely=0.5, anchor="center")
 
     button_cuadro_relacion = tk.Button(root, text="Cuadro-Relacion", font=("Times New Roman", 20, "bold"), bg="lightgray", fg="black", image=icono_cuadro_relacion_photo, compound="left", command= abrir_cuadro_relacion)
