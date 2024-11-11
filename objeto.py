@@ -13,7 +13,7 @@ def abrir_ventana_objeto(root):
 
     # Crear una nueva ventana
     objeto_root = tk.Tk()
-    objeto_root.title("Agregar Objeto")
+    objeto_root.title("Agregar Fallas")
 
     # Poner la interfaz en pantalla completa
     objeto_root.attributes("-fullscreen", True)
@@ -34,7 +34,7 @@ def abrir_ventana_objeto(root):
     canvas.create_image(0, 0, image=background_photo, anchor="nw")
 
     # Crear el texto del título en el canvas y centrarlo
-    canvas.create_text(objeto_root.winfo_screenwidth() / 2, 75, text="Agregar Objeto", font=("Times New Roman", 42, "bold"), fill="white")
+    canvas.create_text(objeto_root.winfo_screenwidth() / 2, 75, text="Agregar Fallas", font=("Times New Roman", 42, "bold"), fill="white")
 
     # Variables para almacenar los datos
     nombre_var = tk.StringVar()
@@ -69,7 +69,7 @@ def abrir_ventana_objeto(root):
                 database="sistema_experto"
             )
             cursor = conexion.cursor()
-            cursor.execute("SELECT nombre, descripcion, imagen FROM objeto ORDER BY id ASC LIMIT 1")
+            cursor.execute("SELECT nombre, descripcion, imagen FROM fallas_computadora ORDER BY id ASC LIMIT 1")
             registro = cursor.fetchone()
             if registro:
                 nombre_var.set(registro[0])
@@ -99,7 +99,7 @@ def abrir_ventana_objeto(root):
                 database="sistema_experto"
             )
             cursor = conexion.cursor()
-            cursor.execute("SELECT nombre, descripcion, imagen FROM objeto WHERE id < (SELECT id FROM objeto WHERE nombre = %s) ORDER BY id DESC LIMIT 1", (nombre_actual,))
+            cursor.execute("SELECT nombre, descripcion, imagen FROM fallas_computadora WHERE id < (SELECT id FROM fallas_computadoras WHERE nombre = %s) ORDER BY id DESC LIMIT 1", (nombre_actual,))
             registro = cursor.fetchone()
             if registro:
                 nombre_var.set(registro[0])
@@ -129,7 +129,7 @@ def abrir_ventana_objeto(root):
                 database="sistema_experto"
             )
             cursor = conexion.cursor()
-            cursor.execute("SELECT nombre, descripcion, imagen FROM objeto WHERE id > (SELECT id FROM objeto WHERE nombre = %s) ORDER BY id ASC LIMIT 1", (nombre_actual,))
+            cursor.execute("SELECT nombre, descripcion, imagen FROM fallas_computadora WHERE id > (SELECT id FROM fallas_computadora WHERE nombre = %s) ORDER BY id ASC LIMIT 1", (nombre_actual,))
             registro = cursor.fetchone()
             if registro:
                 nombre_var.set(registro[0])
@@ -158,7 +158,7 @@ def abrir_ventana_objeto(root):
                 database="sistema_experto"
             )
             cursor = conexion.cursor()
-            cursor.execute("SELECT nombre, descripcion, imagen FROM objeto ORDER BY id DESC LIMIT 1")
+            cursor.execute("SELECT nombre, descripcion, imagen FROM fallas_computadora ORDER BY id DESC LIMIT 1")
             registro = cursor.fetchone()
             if registro:
                 nombre_var.set(registro[0])
@@ -195,14 +195,14 @@ def abrir_ventana_objeto(root):
             cursor = conexion.cursor()
             
             # Verificar si el nombre ya existe
-            cursor.execute("SELECT COUNT(*) FROM objeto WHERE nombre = %s", (nombre,))
+            cursor.execute("SELECT COUNT(*) FROM fallas_computadora WHERE nombre = %s", (nombre,))
             if cursor.fetchone()[0] > 0:
                 messagebox.showerror("Error", "El nombre ya existe. Por favor, elija otro nombre.")
                 return                
             
             with open(imagen_path, "rb") as file:
                 imagen_blob = file.read()
-            cursor.execute("INSERT INTO objeto (nombre, descripcion, imagen) VALUES (%s, %s, %s)", (nombre, descripcion, imagen_blob))
+            cursor.execute("INSERT INTO fallas_computadora (nombre, descripcion, imagen) VALUES (%s, %s, %s)", (nombre, descripcion, imagen_blob))
             conexion.commit()
             cursor.close()
             conexion.close()
@@ -241,7 +241,7 @@ def abrir_ventana_objeto(root):
                     database="sistema_experto"
                 )
                 cursor = conexion.cursor()
-                cursor.execute("SELECT nombre FROM objeto")
+                cursor.execute("SELECT nombre FROM fallas_computadora")
                 registros = cursor.fetchall()
                 for registro in registros:
                     listbox.insert(tk.END, registro[0])
@@ -266,7 +266,7 @@ def abrir_ventana_objeto(root):
                     database="sistema_experto"
                 )
                 cursor = conexion.cursor()
-                cursor.execute("DELETE FROM objeto WHERE nombre = %s", (seleccion,))
+                cursor.execute("DELETE FROM fallas_computadora WHERE nombre = %s", (seleccion,))
                 if cursor.rowcount == 0:
                     messagebox.showinfo("Información", "No se encontró ningún registro con ese nombre.")
                 else:
@@ -323,7 +323,7 @@ def abrir_ventana_objeto(root):
                 database="sistema_experto"
             )
             cursor = conexion.cursor()
-            cursor.execute("SELECT id, nombre FROM objeto")
+            cursor.execute("SELECT id, nombre FROM fallas_computadora")
             registros = cursor.fetchall()
             for registro in registros:
                 listbox.insert(tk.END, f"{registro[0]} - {registro[1]}")
@@ -353,7 +353,7 @@ def abrir_ventana_objeto(root):
                 database="sistema_experto"
             )
             cursor = conexion.cursor()
-            cursor.execute("SELECT nombre, descripcion, imagen FROM objeto WHERE id = %s", (id_registro,))
+            cursor.execute("SELECT nombre, descripcion, imagen FROM fallas_computadora WHERE id = %s", (id_registro,))
             registro = cursor.fetchone()
             cursor.close()
             conexion.close()
@@ -407,7 +407,7 @@ def abrir_ventana_objeto(root):
                 database="sistema_experto"
             )
             cursor = conexion.cursor()
-            cursor.execute("SELECT nombre, descripcion, imagen FROM objeto")
+            cursor.execute("SELECT nombre, descripcion, imagen FROM fallas_computadora")
             registros = cursor.fetchall()
             cursor.close()
             conexion.close()
@@ -458,7 +458,7 @@ def abrir_ventana_objeto(root):
                     database="sistema_experto"
                 )
                 cursor = conexion.cursor()
-                cursor.execute("SELECT nombre, descripcion FROM objeto")
+                cursor.execute("SELECT nombre, descripcion FROM fallas_computadora")
                 registros = cursor.fetchall()
                 for registro in registros:
                     tree.insert("", tk.END, values=registro)
@@ -525,7 +525,7 @@ def abrir_ventana_objeto(root):
                         database="sistema_experto"
                     )
                     cursor = conexion.cursor()
-                    cursor.execute("SELECT * FROM objeto WHERE nombre = %s", (nombre,))
+                    cursor.execute("SELECT * FROM fallas_computadora WHERE nombre = %s", (nombre,))
                     registro = cursor.fetchone()
                     if registro:
                         entry_nombre_modificar.insert(0, registro[1])
@@ -562,7 +562,7 @@ def abrir_ventana_objeto(root):
                     )
                     cursor = conexion.cursor()
                     #Verifica si el nuevo nombre ya existe
-                    cursor.execute("SELECT COUNT(*) FROM objeto WHERE nombre = %s", (nuevo_nombre,))
+                    cursor.execute("SELECT COUNT(*) FROM fallas_computadora WHERE nombre = %s", (nuevo_nombre,))
                     if cursor.fetchone()[0] > 0 and nuevo_nombre != nombre:
                         messagebox.showerror("Error", "El nuevo nombre ya existe. Por favor, elija otro nombre.")
                         return
@@ -570,9 +570,9 @@ def abrir_ventana_objeto(root):
                     if imagen_path_modificar:
                         with open(imagen_path_modificar, 'rb') as file:
                             binary_data = file.read()
-                        cursor.execute("UPDATE objeto SET nombre = %s, descripcion = %s, imagen = %s WHERE nombre = %s", (nuevo_nombre, nueva_descripcion, binary_data, nombre))
+                        cursor.execute("UPDATE fallas_computadora SET nombre = %s, descripcion = %s, imagen = %s WHERE nombre = %s", (nuevo_nombre, nueva_descripcion, binary_data, nombre))
                     else:
-                        cursor.execute("UPDATE objeto SET nombre = %s, descripcion = %s WHERE nombre = %s", (nuevo_nombre, nueva_descripcion, nombre))
+                        cursor.execute("UPDATE fallas_computadora SET nombre = %s, descripcion = %s WHERE nombre = %s", (nuevo_nombre, nueva_descripcion, nombre))
                     conexion.commit()
                     messagebox.showinfo("Éxito", "Registro modificado correctamente.")
                     ventana_modificar_detalles.destroy()
