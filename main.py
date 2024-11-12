@@ -61,7 +61,7 @@ root.imagen_izquierda = imagen_izquierda
 root.imagen_derecha = imagen_derecha
 
 # Añadir texto al Canvas
-canvas.create_text(root.winfo_screenwidth() // 2, 90, text="JESSICA LA MEJOR DEL MUNDO", font=("Times New Roman", 62, "bold"), fill="darkblue")
+canvas.create_text(root.winfo_screenwidth() // 2, 90, text="B I E N V E N I D O S", font=("Times New Roman", 62, "bold"), fill="darkblue")
 canvas.create_text(root.winfo_screenwidth() // 2, 260, text="I . T . Z", font=("Times New Roman", 48, "bold"), fill="black")
 canvas.create_text(root.winfo_screenwidth() // 2, 430, text="S.E para detección de\n     fallas tecnicas",font=("Times New Roman", 56, "bold"), fill="darkred")
 canvas.create_text(root.winfo_screenwidth() // 2, 600, text="Tapia Alejandro Oscar", font=("Times New Roman", 48, "bold"), fill="black")
