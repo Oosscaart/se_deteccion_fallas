@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import simpledialog, messagebox, StringVar, OptionMenu, Listbox, Button
 from PIL import Image, ImageTk
+import importlib
 import mysql.connector
 import io
 import os
@@ -44,7 +45,7 @@ def abrir_ventana_busqueda(root):
     )
     
     cursor = conexion.cursor()
-    cursor.execute("SELECT nombre, imagen, bandera FROM caracteristicas")
+    cursor.execute("SELECT nombre, imagen FROM caracteristicas")
     caracteristicas = cursor.fetchall()
     conexion.close()
     
@@ -93,7 +94,8 @@ def abrir_ventana_busqueda(root):
         buscar_caracteristica_root.destroy()
         import usuario
         usuario.abrir_ventana()
-
+        
+    
     # Botón para añadir característica
     boton_añadir = Button(buscar_caracteristica_root, text="Añadir", font=("Times New Roman", 18), command=añadir_caracteristica)
     boton_añadir.place(x=buscar_caracteristica_root.winfo_screenwidth() / 2 + 210, y=350)
@@ -102,58 +104,8 @@ def abrir_ventana_busqueda(root):
     boton_eliminar = Button(buscar_caracteristica_root, text="Eliminar", font=("Times New Roman", 18), command=eliminar_caracteristica)
     boton_eliminar.place(x=buscar_caracteristica_root.winfo_screenwidth() / 2 + 210, y=400)
     
-    # Función para realizar la inferencia
-    def inferir():
-        # Obtener las características seleccionadas
-        seleccionadas = listbox_caracteristicas.get(0, tk.END)
-        
-        # Conectar a la base de datos para obtener los datos de fallas y características
-        conexion = mysql.connector.connect(
-            host="localhost",
-            user="root",
-            password="root",
-            database="sistema_experto"
-        )
-        
-        cursor = conexion.cursor()
-        
-        # Obtener las fallas y sus características con los pesos
-        cursor.execute("""
-            SELECT f.id, f.nombre, f.suma, c.nombre, cf.peso
-            FROM fallas_computadora f
-            JOIN caracteristicas_fallas_computadora cf ON f.id = cf.id_fallas_computadora
-            JOIN caracteristicas c ON c.id = cf.id_caracteristicas
-        """)
-        fallas_y_caracteristicas = cursor.fetchall()
-        
-        # Calcular la suma de los pesos de las características seleccionadas
-        fallas_porcentaje = {}
-        for id_falla, nombre_falla, suma_falla, nombre_caracteristica, peso in fallas_y_caracteristicas:
-            if nombre_caracteristica in seleccionadas:
-                if id_falla not in fallas_porcentaje:
-                    fallas_porcentaje[id_falla] = {'nombre': nombre_falla, 'peso_total': 0, 'suma_falla': suma_falla}
-                fallas_porcentaje[id_falla]['peso_total'] += peso
-        
-        # Calcular el porcentaje para cada falla y redondearlo
-        resultados = []
-        for id_falla, data in fallas_porcentaje.items():
-            porcentaje = (data['peso_total'] / data['suma_falla']) * 100
-            # Redondear el porcentaje hacia arriba si es mayor a .5, hacia abajo si es 0.5 o inferior
-            porcentaje_redondeado = int(porcentaje) if porcentaje % 1 <= 0.5 else int(porcentaje) + 1
-            resultados.append((data['nombre'], porcentaje_redondeado))
-        
-        # Mostrar los resultados en un cuadro de mensaje
-        resultados.sort(key=lambda x: x[1], reverse=True)  # Ordenar por porcentaje descendente
-        mensaje = "Posibles fallas:\n"
-        for nombre_falla, porcentaje in resultados:
-            mensaje += f"{nombre_falla}: {porcentaje}%\n"
-        
-        messagebox.showinfo("Resultados de la inferencia", mensaje)
-        
-        conexion.close()
-
     # Botón Inferir
-    boton_inferir = Button(buscar_caracteristica_root, text="Inferir", font=("Times New Roman", 18), command=inferir)
+    boton_inferir = Button(buscar_caracteristica_root, text="Inferir", font=("Times New Roman", 18))
     boton_inferir.place(x=buscar_caracteristica_root.winfo_screenwidth() / 2 - 100, y=570)
     
     # Botón regresar
@@ -164,5 +116,5 @@ def abrir_ventana_busqueda(root):
 
     boton_salir = tk.Button(buscar_caracteristica_root, text="Salir", font=("Arial", 16), image=icono_regresar_photo, compound="left", padx=20, pady=10, command=regresar)
     boton_salir.place(relx=0.76, rely=0.9, anchor="center")  
-    
+      
     buscar_caracteristica_root.mainloop()

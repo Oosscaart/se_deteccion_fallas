@@ -63,7 +63,7 @@ def abrir_ventana_cuadro_relacion(root):
     # Crear el OptionMenu para mostrar las enfermedades
     enfermedad_var = StringVar(cuadro_relacion_root)
     enfermedad_var.set("Selecciona una Falla")
-    option_menu = OptionMenu(cuadro_relacion_root, enfermedad_var, *[enfermedad[1] for enfermedad in enfermedades])
+    option_menu = OptionMenu(cuadro_relacion_root, enfermedad_var, *sorted([enfermedad[1] for enfermedad in enfermedades]))
     option_menu.place(x=350, y=140)
     
     # Crear el Label para mostrar la imagen de la enfermedad y centrarla
@@ -91,7 +91,7 @@ def abrir_ventana_cuadro_relacion(root):
     # Crear el OptionMenu para mostrar los síntomas
     sintoma_var = StringVar(cuadro_relacion_root)
     sintoma_var.set("Selecciona caracteristicas")
-    option_menu_sintoma = OptionMenu(cuadro_relacion_root, sintoma_var, *[sintoma[1] for sintoma in sintomas])
+    option_menu_sintoma = OptionMenu(cuadro_relacion_root, sintoma_var, *sorted([sintoma[1] for sintoma in sintomas]))
     option_menu_sintoma.place(x=350, y=190)
     
     # Crear el texto "Peso %" y centrarlo

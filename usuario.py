@@ -53,10 +53,10 @@ def abrir_ventana():
     icono_regresar_photo = ImageTk.PhotoImage(icono_regresar)
 
       # Crear botones "Entrar en sintoma" y "Entrar en enfermedad" con iconos y tamaño más grande
-    button_sintoma_entrar = tk.Button(root, text=" Busqueda por sintoma", font=("Times New Roman", 30, "bold"), bg="white", fg="black", image=icono_sintoma_entrar_photo, compound="left", padx=20, pady=10, command=abrir_busqueda_sintoma)
+    button_sintoma_entrar = tk.Button(root, text=" Busqueda por Caracteristica", font=("Times New Roman", 30, "bold"), bg="white", fg="black", image=icono_sintoma_entrar_photo, compound="left", padx=20, pady=10, command=abrir_busqueda_sintoma)
     button_sintoma_entrar.place(relx=0.5, rely=0.4, anchor="center")
 
-    button_enfermedad_entrar = tk.Button(root, text=" Busqueda por enfermedad", font=("Times New Roman", 30, "bold"), bg="white", fg="black", image=icono_enfermedad_entrar_photo, compound="left", padx=20, pady=10)
+    button_enfermedad_entrar = tk.Button(root, text=" Busqueda por falla de computadora", font=("Times New Roman", 30, "bold"), bg="white", fg="black", image=icono_enfermedad_entrar_photo, compound="left", padx=20, pady=10)
     button_enfermedad_entrar.place(relx=0.5, rely=0.7, anchor="center")
 
     # Crear botón "Regresar"
